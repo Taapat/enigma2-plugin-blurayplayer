@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: enigma-plugin 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-03-04 19:45+0200\n"
-"PO-Revision-Date: 2016-03-13 22:53+0200\n"
+"PO-Revision-Date: 2016-03-16 20:50+0200\n"
 "Last-Translator: thawtes <thawtes@gmail.com>\n"
 "Language-Team: thawtes <thawtes@gmail.com>\n"
 "Language: tr_TR\n"
@@ -16,10 +16,16 @@ msgstr ""
 
 #, python-format
 msgid "%d. Duration %d:%02d minutes"
-msgstr "%d. süresi %d:%02d dakika"
+msgstr "%d. parç %d:%02d dakika"
+
+msgid "Audio plugins"
+msgstr "Ses Uygulaması"
 
 msgid "Blu-ray player"
 msgstr "Blu-Ray Oynatıcı"
+
+msgid "Channel"
+msgstr "Kanal"
 
 msgid "Error in reading titles..."
 msgstr "başlıkları okurken hata oluştu..."
@@ -27,8 +33,29 @@ msgstr "başlıkları okurken hata oluştu..."
 msgid "Exit"
 msgstr "Çıkış"
 
+msgid "Multi channel downmix"
+msgstr "Çoklu Kanal Karışımı"
+
 msgid "Ok"
-msgstr "Tamam"
+msgstr "Başlat"
+
+msgid "Please select the blu-ray disc"
+msgstr "lütfen, blu-ray medyanızı seçiniz"
+
+msgid "Select audio track"
+msgstr "Ses Dublajını Seçiniz"
 
 msgid "Stop playing this movie?"
 msgstr "bu filmin oynatımı durdurulsun mu ?"
+
+msgid "Watch blu-ray discs in folder or iso"
+msgstr "blu-ray disk veya blu-ray iso dosyasını izleyin"
+
+msgid "left"
+msgstr "sol"
+
+msgid "right"
+msgstr "sağ"
+
+msgid "stereo"
+msgstr "stereo"
