@@ -13,9 +13,9 @@ def dirBrowser(session, **kwargs):
 def Plugins(**kwargs):
 	screenwidth = getDesktop(0).size().width()
 	if screenwidth and screenwidth == 1920:
-		icon = 'piconhd.png'
+		icon = 'BlurayPlayer_FHD.png'
 	else:
-		icon = 'picon.png'
+		icon = 'BlurayPlayer_HD.png'
 	return [PluginDescriptor(
 			name = _('Blu-ray player'),
 			description = _('Watch blu-ray discs in folder or iso'),
