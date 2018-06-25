@@ -1,0 +1,52 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-12-21 19:03+0200\n"
+"PO-Revision-Date: 2018-06-25 23:03+0200\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.8\n"
+"Last-Translator: \n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: fr\n"
+
+#: BlurayUi.py:194
+#, python-format
+msgid "%d. Duration %d:%02d:%02d %d chapters"
+msgstr "%d. Durée %d:%02d:%02d %d chapitres"
+
+#: BlurayUi.py:134 plugin.py:20
+msgid "Blu-ray player"
+msgstr "Lecteur Blu-ray"
+
+#: BlurayUi.py:204
+msgid "Error in reading titles..."
+msgstr "Erreur lors de la lecture des titres…"
+
+#: BlurayUi.py:140 BlurayPlayerDirBrowser.py:18
+msgid "Exit"
+msgstr "Quitter"
+
+#: BlurayUi.py:141 BlurayPlayerDirBrowser.py:19
+msgid "Ok"
+msgstr "Ok"
+
+#: BlurayPlayerDirBrowser.py:29
+msgid "Please select the blu-ray disc"
+msgstr "Merci de choisir un disque blu-ray"
+
+#: BlurayUi.py:52
+msgid "Stop playing this movie?"
+msgstr "Arrêter la lecture du film?"
+
+#: plugin.py:21
+msgid "Watch blu-ray discs in folder or iso"
+msgstr "Regarder des disques blu-ray dans le dossier ou iso"
