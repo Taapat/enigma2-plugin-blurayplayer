@@ -44,4 +44,3 @@ class BlurayPlayerDirBrowser(Screen):
 					self.session.open(BlurayMain, iso_path)
 			except Exception as e:
 				print "[BlurayPlayer] Error on open iso:", e
-
