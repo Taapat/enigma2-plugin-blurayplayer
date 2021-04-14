@@ -17,8 +17,8 @@ class BlurayPlayerDirBrowser(Screen):
 		self.skinName = ['BlurayPlayerDirBrowser', 'FileBrowser']
 		self['key_red'] = StaticText(_('Exit'))
 		self['key_green'] = StaticText(_('Ok'))
-		self['filelist'] = FileList(directory = config.usage.default_path.value,
-				matchingPattern = '(?i)^.*\.(iso)', enableWrapAround = True)
+		self['filelist'] = FileList(directory=config.usage.default_path.value,
+				matchingPattern='(?i)^.*\.(iso)', enableWrapAround=True)
 		self['FilelistActions'] = ActionMap(['SetupActions', 'ColorActions'],
 				{
 					'cancel': self.close,

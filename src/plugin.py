@@ -17,9 +17,9 @@ def Plugins(**kwargs):
 	else:
 		icon = 'BlurayPlayer_HD.png'
 	return [PluginDescriptor(
-			name = _('Blu-ray player'),
-			description = _('Watch blu-ray discs in folder or iso'),
-			where = [PluginDescriptor.WHERE_PLUGINMENU,],
-			icon = icon,
-			fnc = dirBrowser
+			name=_('Blu-ray player'),
+			description=_('Watch blu-ray discs in folder or iso'),
+			where=[PluginDescriptor.WHERE_PLUGINMENU,],
+			icon=icon,
+			fnc=dirBrowser
 			)]

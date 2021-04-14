@@ -25,8 +25,7 @@ class BlurayPlayer(MoviePlayer):
 		MoviePlayer.__init__(self, session, service)
 		self.skinName = ['BlurayPlayer', 'MoviePlayer']
 		self.servicelist = InfoBar.instance and InfoBar.instance.servicelist
-		self.__event_tracker = ServiceEventTracker(screen=self, eventmap=
-			{
+		self.__event_tracker = ServiceEventTracker(screen=self, eventmap={
 				iPlayableService.evSeekableStatusChanged: self.blurayseekableStatusChanged
 			})
 		self.cur = cur
