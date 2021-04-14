@@ -19,7 +19,7 @@ def Plugins(**kwargs):
 	return [PluginDescriptor(
 			name=_('Blu-ray player'),
 			description=_('Watch blu-ray discs in folder or iso'),
-			where=[PluginDescriptor.WHERE_PLUGINMENU,],
+			where=[PluginDescriptor.WHERE_PLUGINMENU, ],
 			icon=icon,
 			fnc=dirBrowser
 			)]
