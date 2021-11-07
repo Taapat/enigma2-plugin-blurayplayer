@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 import os
 
 from Components.ActionMap import ActionMap
@@ -7,7 +9,7 @@ from Components.Sources.StaticText import StaticText
 from Screens.Screen import Screen
 
 from . import _
-from BlurayUi import BlurayMain
+from .BlurayUi import BlurayMain
 
 
 class BlurayPlayerDirBrowser(Screen):
@@ -43,4 +45,4 @@ class BlurayPlayerDirBrowser(Screen):
 				if blurayinfo.isBluray(iso_path) == 1:
 					self.session.open(BlurayMain, iso_path)
 			except Exception as e:
-				print "[BlurayPlayer] Error on open iso:", e
+				print("[BlurayPlayer] Error on open iso:", e)
