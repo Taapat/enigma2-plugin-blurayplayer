@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 import os
 
 from Screens.MovieSelection import MovieSelection
@@ -7,9 +9,9 @@ isMovieSelection = True
 try:
 	old_gotFilename = MovieSelection.gotFilename
 	old_Callback = MovieSelection.itemSelectedCheckTimeshiftCallback
-except:
+except Exception:
 	isMovieSelection = False
-	print '[BlurayPlayer] Plugin can not be used in MovieSelection'
+	print('[BlurayPlayer] Plugin can not be used in MovieSelection')
 
 
 # Replaces the original gotFilename to add bluray folder test at the beginning
@@ -21,7 +23,7 @@ def gotFilename(self, res, selItem=None):
 				from Plugins.Extensions.BlurayPlayer import BlurayUi
 				self.session.open(BlurayUi.BlurayMain, res)
 			except Exception as e:
-				print '[BlurayPlayer] Cannot open BlurayPlayer:', e
+				print('[BlurayPlayer] Cannot open BlurayPlayer:', e)
 			else:
 				return
 	self.orig_gotFilename(res, selItem)
@@ -39,7 +41,7 @@ def itemSelectedCheckTimeshiftCallback(self, ext, path, answer):
 					self.session.open(BlurayUi.BlurayMain, path)
 					return True
 			except Exception as e:
-				print "[ML] Error in BlurayPlayer:", e
+				print("[ML] Error in BlurayPlayer:", e)
 		self.orig_itemSelectedCheckTimeshiftCallback(ext, path, answer)
 
 

@@ -2,11 +2,11 @@ from Plugins.Plugin import PluginDescriptor
 from enigma import getDesktop
 
 from . import _
-import ChangeFunctions
+from . import ChangeFunctions
 
 
 def dirBrowser(session, **kwargs):
-	from BlurayPlayerDirBrowser import BlurayPlayerDirBrowser
+	from .BlurayPlayerDirBrowser import BlurayPlayerDirBrowser
 	session.open(BlurayPlayerDirBrowser)
 
 
