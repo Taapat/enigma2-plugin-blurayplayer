@@ -183,9 +183,9 @@ class BlurayMain(Screen):
 		if self.res[-4:].lower() != '.iso':
 			self.OpenDisc()
 		else:
-			iso_path = self.res.replace(' ', '\ ')
+			iso_path = self.res.replace(' ', r'\ ')
 			self.res = '/media/Bluray_%s' % os.path.splitext(
-					iso_path.replace('\ ', ''))[0].rsplit('/', 1)[1]
+					iso_path.replace(r'\ ', ''))[0].rsplit('/', 1)[1]
 			if os.path.exists(self.res):
 				self.Console.ePopen('umount -f %s' % self.res)
 			else:
