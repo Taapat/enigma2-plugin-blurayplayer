@@ -6,8 +6,7 @@ plugin = 'Extensions.BlurayPlayer'
 
 module = Extension(plugin + '.blurayinfo',
 		libraries=['bluray', 'udfread'],
-		sources=['src/blurayinfo.c']
-	)
+		sources=['src/blurayinfo.c'])
 
 setup(name='enigma2-plugin-extensions-blurayplayer',
 		version='1.0',
@@ -18,5 +17,4 @@ setup(name='enigma2-plugin-extensions-blurayplayer',
 		package_data={plugin: ['*.png', 'locale/*/LC_MESSAGES/*.mo']},
 		description='Play Blu-ray videos',
 		cmdclass=setup_translate.cmdclass,
-		ext_modules=[module]
-	)
+		ext_modules=[module])
