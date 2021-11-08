@@ -380,7 +380,7 @@ static struct PyModuleDef moduledef =
 };
 
 PyMODINIT_FUNC
-PyInit_initblurayinfo(void)
+PyInit_blurayinfo(void)
 {
     return PyModule_Create(&moduledef);
 }
