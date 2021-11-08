@@ -48,13 +48,18 @@ def itemSelectedCheckTimeshiftCallback(self, ext, path, answer):
 				print("[ML] Error in BlurayPlayer:", e)
 		self.orig_itemSelectedCheckTimeshiftCallback(ext, path, answer)
 
-
 if isMovieSelection:
 	from types import MethodType
 
-	MovieSelection.orig_gotFilename = MethodType(old_gotFilename, None, MovieSelection)
+	try:
+		MovieSelection.orig_gotFilename = MethodType(old_gotFilename, None, MovieSelection)
+		MovieSelection.orig_itemSelectedCheckTimeshiftCallback = MethodType(old_Callback, None, MovieSelection)
+	except TypeError:
+		# Python 3
+		MovieSelection.orig_gotFilename = MethodType(old_gotFilename, MovieSelection)
+		MovieSelection.orig_itemSelectedCheckTimeshiftCallback = MethodType(old_Callback, MovieSelection)
+
 	MovieSelection.gotFilename = gotFilename
-	MovieSelection.orig_itemSelectedCheckTimeshiftCallback = MethodType(old_Callback, None, MovieSelection)
 	MovieSelection.itemSelectedCheckTimeshiftCallback = itemSelectedCheckTimeshiftCallback
 
 
