@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 import os
 
 from enigma import ePicLoad, eServiceReference, eTimer, getDesktop, iPlayableService
@@ -13,11 +15,18 @@ from Components.Sources.StaticText import StaticText
 from Screens.InfoBar import InfoBar, MoviePlayer
 from Screens.MessageBox import MessageBox
 from Screens.Screen import Screen
-from Tools.BoundFunction import boundFunction
 from Tools.Directories import resolveFilename, SCOPE_PLUGINS
 
 from . import _
-import blurayinfo
+from . import blurayinfo
+
+
+try:
+	long(1)
+except NameError:
+	# Python 3
+	def long(value):
+		return int(value)
 
 
 class BlurayPlayer(MoviePlayer):
@@ -25,10 +34,8 @@ class BlurayPlayer(MoviePlayer):
 		MoviePlayer.__init__(self, session, service)
 		self.skinName = ['BlurayPlayer', 'MoviePlayer']
 		self.servicelist = InfoBar.instance and InfoBar.instance.servicelist
-		self.__event_tracker = ServiceEventTracker(screen=self, eventmap=
-			{
-				iPlayableService.evSeekableStatusChanged: self.blurayseekableStatusChanged
-			})
+		self.__event_tracker = ServiceEventTracker(screen=self, eventmap={
+				iPlayableService.evSeekableStatusChanged: self.blurayseekableStatusChanged})
 		self.cur = cur
 		self.playnext = playnext
 		self.chapters = []
@@ -42,14 +49,17 @@ class BlurayPlayer(MoviePlayer):
 					self.chapters.append(long(chapter))
 					self.addMark((long(chapter), self.CUT_TYPE_MARK))
 			except Exception as e:
-				print '[BlurayPlayer] error in add chapters', e
+				print('[BlurayPlayer] error in add chapters', e)
 
 	def blurayseekableStatusChanged(self):
 		service = self.session.nav.getCurrentService()
 		audio = service and service.audioTracks()
 		if audio:
 			n = audio.getNumberOfTracks()
-			for langval in (config.autolanguage.audio_autoselect1.value.split(' '), config.autolanguage.audio_autoselect2.value.split(' '), config.autolanguage.audio_autoselect3.value.split(' '), config.autolanguage.audio_autoselect4.value.split(' ')):
+			for langval in (config.autolanguage.audio_autoselect1.value.split(' '),
+					config.autolanguage.audio_autoselect2.value.split(' '),
+					config.autolanguage.audio_autoselect3.value.split(' '),
+					config.autolanguage.audio_autoselect4.value.split(' ')):
 				for autolang in langval:
 					if autolang and autolang in self.cur[2]:
 						ti = 0
@@ -57,7 +67,7 @@ class BlurayPlayer(MoviePlayer):
 							if self.cur[3][li] == audio.getTrackInfo(ti).getDescription():  # Ignore unrecognized tracks
 								if autolang == lang:
 									if ti > 0:
-										print '[BlurayPlayer] select autolanguage track', ti, lang
+										print('[BlurayPlayer] select autolanguage track', ti, lang)
 										audio.selectTrack(ti)
 									return
 								elif ti < n:
@@ -70,7 +80,7 @@ class BlurayPlayer(MoviePlayer):
 			for chapter in self.chapters:
 				try:
 					self.removeMark((chapter, self.CUT_TYPE_MARK))
-				except:
+				except Exception:
 					pass
 			self.chapters = []
 		if how == 'ask':
@@ -101,7 +111,7 @@ class BlurayPlayer(MoviePlayer):
 		pass
 
 	def audioSelection(self):
-		from BlurayAudioSelection import BlurayAudioSelection
+		from .BlurayAudioSelection import BlurayAudioSelection
 		self.session.open(BlurayAudioSelection, infobar=self,
 				languages=self.cur[2], codecs=self.cur[3])
 
@@ -170,12 +180,10 @@ class BlurayMain(Screen):
 		self['key_red'] = StaticText(_('Exit'))
 		self['key_green'] = StaticText(_('Ok'))
 		self['actions'] = ActionMap(['OkCancelActions', 'ColorActions'],
-				{
-					'cancel': self.close,
+				{'cancel': self.close,
 					'red': self.close,
 					'ok': self.Ok,
-					'green': self.Ok,
-				})
+					'green': self.Ok})
 		self['list'] = List([])
 		self['name'] = Label()
 		self['thumbnail'] = Pixmap()
@@ -198,7 +206,7 @@ class BlurayMain(Screen):
 				content.append((title_entry, playfiles, languages, codecs, title[4], title[5]))
 				x += 1
 		except Exception as e:
-			print '[BlurayPlayer] blurayinfo.getTitles:', e
+			print('[BlurayPlayer] blurayinfo.getTitles:', e)
 			content.append((_('Error in reading titles...'), [None], None, None, 0, 0))
 		self['list'].setList(content)
 
@@ -213,7 +221,7 @@ class BlurayMain(Screen):
 						try:
 							self.name = open(dlFile).read()\
 									.split('<di:name>')[1].split('</di:name>')[0]
-						except:
+						except (IOError, IndexError):
 							pass
 					elif dlFile[-4:] == '.jpg':
 						size = os.stat(dlFile).st_size
@@ -224,9 +232,9 @@ class BlurayMain(Screen):
 		if not self.name:
 			if self.res[-1:] == '/':
 				self.res = self.res[:-1]
-			try:
+			if '/' in self.res:
 				self.name = self.res.rsplit('/', 1)[1].replace('Bluray_', '')
-			except:
+			else:
 				self.name = 'Bluray'
 		self['name'].setText(self.name)
 
