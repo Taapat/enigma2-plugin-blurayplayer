@@ -2,9 +2,8 @@ from __future__ import print_function
 
 import os
 
-from enigma import ePicLoad, eServiceReference, eTimer, getDesktop, iPlayableService
+from enigma import eServiceReference, eTimer, getDesktop, iPlayableService
 from Components.ActionMap import ActionMap
-from Components.AVSwitch import AVSwitch
 from Components.config import config
 from Components.Console import Console
 from Components.Label import Label
@@ -17,6 +16,7 @@ from Screens.MessageBox import MessageBox
 from Screens.Screen import Screen
 from Tools.BoundFunction import boundFunction
 from Tools.Directories import resolveFilename, SCOPE_PLUGINS
+from Tools.LoadPixmap import LoadPixmap
 
 from . import _
 from . import blurayinfo
@@ -260,29 +260,17 @@ class BlurayMain(Screen):
 		if not self.name:
 			if self.res[-1:] == '/':
 				self.res = self.res[:-1]
-			try:
+			if '/' in self.res:
 				self.name = self.res.rsplit('/', 1)[1].replace('Bluray_', '')
-			except Exception:
+			else:
 				self.name = 'Bluray'
 		self['name'].setText(self.name)
 
 		if not thumbnail:
 			thumbnail = resolveFilename(SCOPE_PLUGINS,
 					'Extensions/BlurayPlayer/icon.png')
-		size = AVSwitch().getFramebufferScale()
-		self.picloads = ePicLoad()
-		self.picloads.PictureData.get().append(self.FinishDecode)
-		self.picloads.setPara((
-				self['thumbnail'].instance.size().width(),
-				self['thumbnail'].instance.size().height(),
-				size[0], size[1], False, 1, '#00000000'))
-		self.picloads.startDecode(thumbnail)
-
-	def FinishDecode(self, picInfo=None):
-		ptr = self.picloads.getData()
-		if ptr:
-			self['thumbnail'].instance.setPixmap(ptr.__deref__())
-			del self.picloads
+		self['thumbnail'].instance.setScale(1)
+		self['thumbnail'].instance.setPixmap(LoadPixmap(thumbnail))
 
 	def Ok(self):
 		current = self['list'].getCurrent()
