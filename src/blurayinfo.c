@@ -371,6 +371,7 @@ static PyMethodDef blurayinfo_funcs[] = {
 };
 
 #if PY_MAJOR_VERSION >= 3
+
 static struct PyModuleDef moduledef =
 {
     PyModuleDef_HEAD_INIT,
@@ -379,15 +380,17 @@ static struct PyModuleDef moduledef =
     blurayinfo_funcs
 };
 
-PyMODINIT_FUNC
-PyInit_blurayinfo(void)
+PyMODINIT_FUNC PyInit_blurayinfo(void)
 {
     return PyModule_Create(&moduledef);
 }
+
 #else
-PyMODINIT_FUNC
+
 void initblurayinfo(void)
 {
 	Py_InitModule("blurayinfo", blurayinfo_funcs);
 }
+
 #endif
+
