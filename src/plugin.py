@@ -8,6 +8,7 @@ from enigma import getDesktop
 
 from . import _
 
+
 isMovieSelection = False
 orig_gotFilename = None
 orig_itemSelectedCheckTimeshiftCallback = None
@@ -18,9 +19,9 @@ try:
 except Exception:
 	print('[BlurayPlayer] Plugin can not be used in MovieSelection')
 
+
 # Replaces the original gotFilename to add bluray folder test at the beginning
 # If test fails call original gotFilename as orig_gotFilename to to keep the code unchanged
-#
 def gotFilename(self, res, selItem=None):
 	global orig_gotFilename
 	if res and os.path.isdir(res):
@@ -32,12 +33,12 @@ def gotFilename(self, res, selItem=None):
 				print('[BlurayPlayer] Cannot open BlurayPlayer:', e)
 			else:
 				return
-# Call the private copy of the original.
+	# Call the private copy of the original.
 	orig_gotFilename(self, res, selItem)
+
 
 # Replaces the original itemSelectedCheckTimeshiftCallback to add iso mount at the beginning
 # If mount fails call original as orig_itemSelectedCheckTimeshiftCallback to to keep code unchanged
-#
 def itemSelectedCheckTimeshiftCallback(self, ext, path, answer):
 	global orig_itemSelectedCheckTimeshiftCallback
 	if answer:
@@ -50,12 +51,12 @@ def itemSelectedCheckTimeshiftCallback(self, ext, path, answer):
 					return True
 			except Exception as e:
 				print("[BlurayPlayer] CheckTimeshift error:", e)
-# Call the private copy of the original.
+		# Call the private copy of the original
 		orig_itemSelectedCheckTimeshiftCallback(self, ext, path, answer)
+
 
 # If we can work, put our new definitions into place, overriding the
 # originals. We've already remembered what they were.
-#
 if isMovieSelection:
 	MovieSelection.gotFilename = gotFilename
 	MovieSelection.itemSelectedCheckTimeshiftCallback = itemSelectedCheckTimeshiftCallback
