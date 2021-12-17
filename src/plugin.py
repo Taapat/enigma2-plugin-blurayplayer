@@ -14,7 +14,7 @@ orig_gotFilename = None
 orig_itemSelectedCheckTimeshiftCallback = None
 try:
 	orig_gotFilename = MovieSelection.gotFilename
-	orig_Callback = MovieSelection.itemSelectedCheckTimeshiftCallback
+	orig_itemSelectedCheckTimeshiftCallback = MovieSelection.itemSelectedCheckTimeshiftCallback
 	isMovieSelection = True
 except Exception:
 	print('[BlurayPlayer] Plugin can not be used in MovieSelection')
