@@ -8,19 +8,21 @@ from enigma import getDesktop
 
 from . import _
 
-
-isMovieSelection = True
+isMovieSelection = False
+orig_gotFilename = None
+orig_itemSelectedCheckTimeshiftCallback = None
 try:
-	old_gotFilename = MovieSelection.gotFilename
-	old_Callback = MovieSelection.itemSelectedCheckTimeshiftCallback
+	orig_gotFilename = MovieSelection.gotFilename
+	orig_Callback = MovieSelection.itemSelectedCheckTimeshiftCallback
+	isMovieSelection = True
 except Exception:
-	isMovieSelection = False
 	print('[BlurayPlayer] Plugin can not be used in MovieSelection')
-
 
 # Replaces the original gotFilename to add bluray folder test at the beginning
 # If test fails call original gotFilename as orig_gotFilename to to keep the code unchanged
+#
 def gotFilename(self, res, selItem=None):
+	global orig_gotFilename
 	if res and os.path.isdir(res):
 		if os.path.isdir(os.path.join(res, 'BDMV/STREAM/')):
 			try:
@@ -30,12 +32,14 @@ def gotFilename(self, res, selItem=None):
 				print('[BlurayPlayer] Cannot open BlurayPlayer:', e)
 			else:
 				return
-	self.orig_gotFilename(res, selItem)
-
+# Call the private copy of the original.
+	orig_gotFilename(self, res, selItem)
 
 # Replaces the original itemSelectedCheckTimeshiftCallback to add iso mount at the beginning
 # If mount fails call original as orig_itemSelectedCheckTimeshiftCallback to to keep code unchanged
+#
 def itemSelectedCheckTimeshiftCallback(self, ext, path, answer):
+	global orig_itemSelectedCheckTimeshiftCallback
 	if answer:
 		if ext == '.iso':
 			try:
@@ -45,20 +49,14 @@ def itemSelectedCheckTimeshiftCallback(self, ext, path, answer):
 					self.session.open(BlurayUi.BlurayMain, path)
 					return True
 			except Exception as e:
-				print("[ML] Error in BlurayPlayer:", e)
-		self.orig_itemSelectedCheckTimeshiftCallback(ext, path, answer)
+				print("[BlurayPlayer] CheckTimeshift error:", e)
+# Call the private copy of the original.
+		orig_itemSelectedCheckTimeshiftCallback(self, ext, path, answer)
 
+# If we can work, put our new definitions into place, overriding the
+# originals. We've already remembered what they were.
+#
 if isMovieSelection:
-	from types import MethodType
-
-	try:
-		MovieSelection.orig_gotFilename = MethodType(old_gotFilename, None, MovieSelection)
-		MovieSelection.orig_itemSelectedCheckTimeshiftCallback = MethodType(old_Callback, None, MovieSelection)
-	except TypeError:
-		# Python 3
-		MovieSelection.orig_gotFilename = MethodType(old_gotFilename, MovieSelection)
-		MovieSelection.orig_itemSelectedCheckTimeshiftCallback = MethodType(old_Callback, MovieSelection)
-
 	MovieSelection.gotFilename = gotFilename
 	MovieSelection.itemSelectedCheckTimeshiftCallback = itemSelectedCheckTimeshiftCallback
 
